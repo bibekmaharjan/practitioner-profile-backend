@@ -53,3 +53,66 @@ export const addPractitioner = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
+/**
+ * Update practitioner of practitioner list.
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+export const updatePractitioner = async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const userImg = result.secure_url;
+
+    const { id } = req.params;
+
+    const {
+      fullName,
+      email,
+      contact,
+      dob,
+      workingDays,
+      startTime,
+      endTime,
+      address,
+      city,
+      gender,
+      zipcode,
+      status,
+      isICUSpecialist,
+      allergies,
+    } = req.body;
+
+    // update the practitioner record
+    const [numUpdated, updatedPractitioner] = await Practitioner.update(
+      {
+        fullName,
+        email,
+        contact,
+        dob,
+        workingDays,
+        startTime,
+        endTime,
+        address,
+        city,
+        gender,
+        zipcode,
+        status,
+        isICUSpecialist,
+        userImg,
+        allergies,
+      },
+      { where: { id } }
+    );
+
+    if (numUpdated === 1) {
+      const user = await Practitioner.findByPk(id);
+      res.send(user);
+    } else {
+      throw new Error('Practitioner not found');
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
