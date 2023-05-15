@@ -139,3 +139,20 @@ export const deletePractitioner = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
+/**
+ * Get detail of practitioner
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+export const getPractitionerDetail = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const response = await Practitioner.findByPk(id);
+    res.send(response);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
