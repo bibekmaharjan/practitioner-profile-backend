@@ -1,5 +1,5 @@
 import userAuth from '../schemas/userAuth';
-import { signup } from '../controller/auth';
+import { signin, signup } from '../controller/auth';
 import verifySignUp from '../middleware/verifySignup';
 import { schema } from '../middleware/validateSchema';
 
@@ -10,4 +10,6 @@ export default (app) => {
   });
 
   app.post('/auth/signup', schema(userAuth), [verifySignUp.checkDuplicateEmail], signup);
+
+  app.post('/auth/signin', schema(userAuth), signin);
 };
