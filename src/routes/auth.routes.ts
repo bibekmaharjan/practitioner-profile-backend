@@ -10,5 +10,4 @@ export default (app) => {
   });
 
   app.post('/auth/signup', schema(userAuth), [verifySignUp.checkDuplicateEmail], signup);
-
 };
