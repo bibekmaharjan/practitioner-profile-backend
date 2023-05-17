@@ -106,7 +106,7 @@ export const updatePractitioner = async (req, res) => {
       { where: { id } }
     );
 
-    if (numUpdated === 1) {
+    if (numUpdated) {
       const user = await Practitioner.findByPk(id);
       res.send(user);
     } else {
