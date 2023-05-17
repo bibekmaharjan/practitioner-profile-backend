@@ -1,5 +1,8 @@
+import HttpStatus from 'http-status-codes';
+
 import db from '../models';
 import cloudinary from '../services/cloudinary';
+import { HttpError, handleErrorResponse } from '../misc/errorHandling';
 
 const Practitioner = db.practitioner;
 
@@ -15,7 +18,7 @@ export const getPractitioner = async (req, res) => {
 
     res.send(practitioners);
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    handleErrorResponse(res, err);
   }
 };
 
@@ -31,26 +34,13 @@ export const addPractitioner = async (req, res) => {
     const imageUrl = result.secure_url;
 
     const createdPractitioner = await Practitioner.create({
-      fullName: req.body.fullName,
-      email: req.body.email,
-      contact: req.body.contact,
-      dob: req.body.dob,
-      workingDays: req.body.workingDays,
-      startTime: req.body.startTime,
-      endTime: req.body.endTime,
-      address: req.body.address,
-      city: req.body.city,
-      gender: req.body.gender,
-      zipcode: req.body.zipcode,
-      status: req.body.status,
-      isICUSpecialist: req.body.isICUSpecialist,
-      userImg: imageUrl,
-      allergies: req.body.allergies,
+      ...req.body,
+      userImg: imageUrl
     });
 
-    res.send(createdPractitioner);
+    res.status(HttpStatus.CREATED).send(createdPractitioner);
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    handleErrorResponse(res, err);
   }
 };
 
@@ -67,53 +57,23 @@ export const updatePractitioner = async (req, res) => {
 
     const { id } = req.params;
 
-    const {
-      fullName,
-      email,
-      contact,
-      dob,
-      workingDays,
-      startTime,
-      endTime,
-      address,
-      city,
-      gender,
-      zipcode,
-      status,
-      isICUSpecialist,
-      allergies,
-    } = req.body;
-
     // update the practitioner record
     const [numUpdated, updatedPractitioner] = await Practitioner.update(
       {
-        fullName,
-        email,
-        contact,
-        dob,
-        workingDays,
-        startTime,
-        endTime,
-        address,
-        city,
-        gender,
-        zipcode,
-        status,
-        isICUSpecialist,
-        userImg,
-        allergies,
+       ...req.body,
+       userImg
       },
       { where: { id } }
     );
 
     if (numUpdated) {
       const user = await Practitioner.findByPk(id);
-      res.send(user);
+      res.status(HttpStatus.CREATED).send(user);
     } else {
-      res.status(404).json({ error: 'Practitioner not found.' });
+      throw new HttpError('Practitioner not found.', 400);
     }
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    handleErrorResponse(res, err);
   }
 };
 
@@ -133,9 +93,9 @@ export const deletePractitioner = async (req, res) => {
     if (numDeleted) {
       res.status({ message: 'Practitioner deleted successfully' });
     } else {
-      res.status(404).json({ error: 'Practitioner not found.' });
+      throw new HttpError('Practitioner not found.', 400);
     }
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    handleErrorResponse(res, err);
   }
 };
