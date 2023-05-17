@@ -9,7 +9,6 @@ import * as Joi from 'joi';
  */
 export function validate(data: object, schema: object): Promise<object> {
   return new Promise((resolve, reject) => {
-    console.log(data);
     const options = { abortEarly: false };
 
     const joiSchema = Joi.isSchema(schema) ? schema : Joi.object(schema);
