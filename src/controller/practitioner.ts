@@ -130,10 +130,10 @@ export const deletePractitioner = async (req, res) => {
     // Delete the practitioner record
     const numDeleted = await Practitioner.destroy({ where: { id } });
 
-    if (numDeleted === 1) {
-      res.send({ message: 'Practitioner deleted successfully' });
+    if (numDeleted) {
+      res.status({ message: 'Practitioner deleted successfully' });
     } else {
-      throw new Error('Practitioner not found');
+      res.status(404).json({ error: 'Practitioner not found.' });
     }
   } catch (err) {
     res.status(500).send({ message: err.message });
