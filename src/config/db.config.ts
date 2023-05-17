@@ -5,10 +5,10 @@ dotenv.config();
 const config = {
   db: {
     /* Password needed to save in env or use vault. Exposed only for now */
-    host: 'db4free.net',
-    user: 'practitioneruser',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: 'practitioner',
+    database: process.env.DB_NAME,
   },
   dialect: 'mysql',
   pool: {
