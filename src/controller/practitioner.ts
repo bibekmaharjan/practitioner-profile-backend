@@ -110,30 +110,7 @@ export const updatePractitioner = async (req, res) => {
       const user = await Practitioner.findByPk(id);
       res.send(user);
     } else {
-      throw new Error('Practitioner not found');
-    }
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-};
-
-/**
- * Delete practitioner record by given id
- *
- * @param {Request} req
- * @param {Response} res
- */
-export const deletePractitioner = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    // Delete the practitioner record
-    const numDeleted = await Practitioner.destroy({ where: { id } });
-
-    if (numDeleted === 1) {
-      res.send({ message: 'Practitioner deleted successfully' });
-    } else {
-      throw new Error('Practitioner not found');
+      res.status(404).json({ error: 'Practitioner not found.' });
     }
   } catch (err) {
     res.status(500).send({ message: err.message });
