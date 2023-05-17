@@ -2,21 +2,22 @@ import db from '../models';
 
 const User = db.user;
 
-const checkDuplicateEmail = (req, res, next) => {
-  User.findOne({
-    where: {
-      email: req.body.email,
-    },
-  }).then((user) => {
-    if (user) {
-      res.status(400).send({
-        message: 'Sorry email already exists',
-      });
-      return;
-    }
+const checkDuplicateEmail = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+        where: {
+          email: req.body.email,
+        },
+      })
 
-    next();
-  });
+      if(user) {
+        return res.status(400).send({
+                message: 'Sorry email already exists',
+              });
+      }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
 };
 
 const verifySignUp = {
