@@ -9,7 +9,7 @@ import {
   getPractitioner,
   getPractitionerDetail,
   updatePractitioner,
-} from '../controller/practitioner';
+} from '../controller/practitionerController';
 
 const upload = multer({ dest: 'uploads/' });
 

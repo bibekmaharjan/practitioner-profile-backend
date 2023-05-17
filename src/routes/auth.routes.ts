@@ -1,7 +1,7 @@
 import userAuth from '../schemas/userAuth';
-import { signin, signup } from '../controller/auth';
 import verifySignUp from '../middleware/verifySignup';
 import { schema } from '../middleware/validateSchema';
+import { signin, signup } from '../controller/authController';
 
 export default (app) => {
   app.use(function (req, res, next) {
