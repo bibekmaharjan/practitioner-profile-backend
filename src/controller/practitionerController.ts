@@ -113,6 +113,6 @@ export const getPractitionerDetail = async (req, res) => {
     const response = await Practitioner.findByPk(id);
     res.send(response);
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    handleErrorResponse(res, err);
   }
 };
