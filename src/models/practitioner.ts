@@ -20,7 +20,7 @@ export default (sequelize, Sequelize) => {
         type: Sequelize.DATE,
       },
       workingDays: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       startTime: {
         type: Sequelize.DATE,

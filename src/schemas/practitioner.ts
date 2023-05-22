@@ -6,7 +6,7 @@ export default Joi.object({
   email: Joi.string().email().required(),
   contact: Joi.string().required(),
   dob: Joi.date().required(),
-  workingDays: Joi.number().required(),
+  workingDays: Joi.string().required(),
   startTime: Joi.date().required(),
   endTime: Joi.date().required(),
   address: Joi.string().optional(),

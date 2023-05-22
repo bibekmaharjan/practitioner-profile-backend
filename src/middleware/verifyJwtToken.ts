@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config/auth.config';
 
 const verifyJwtToken = (req, res, next) => {
-  let token = req.headers['x-access-token'];
+  let token = req.headers.authorization;
 
   if (!token) {
     return res.status(403).send({
