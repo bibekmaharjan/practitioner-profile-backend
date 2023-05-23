@@ -96,6 +96,9 @@ The API endpoints require authentication using token-based authentication. To au
   DELETE /practitioner/{practitioner_id}
 ```
 
+#### Postman Collection
+
+[Postman Collection URL](https://www.postman.com/bibekmaharjan/workspace/practitioner/collection/14994939-d9747e5f-0dac-420d-a8e2-8ea4193127b5?action=share&creator=14994939).
 ## Setup Process
 
 1. Clone the repository from [[repository URL]](https://github.com/bibekmaharjan/practitioner-profile-backend.git).
