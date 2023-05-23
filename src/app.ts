@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 
 import authRoutes from './routes/auth.routes';
+import practitionerRoutes from './routes/practitioner.routes';
 
 const app = express();
 const port = 8080;
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 });
 
 authRoutes(app);
+practitionerRoutes(app);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);
