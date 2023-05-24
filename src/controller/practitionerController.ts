@@ -7,7 +7,7 @@ import { HttpError, handleErrorResponse } from '../misc/errorHandling';
 const Practitioner = db.practitioner;
 
 /**
- * Get list of practitioner
+ * Get list of practitioner.
  *
  * @param {Request} req
  * @param {Response} res
@@ -45,7 +45,7 @@ export const addPractitioner = async (req, res) => {
 };
 
 /**
- * Update practitioner of practitioner list.
+ * Update practitioner from practitioner list.
  *
  * @param {Request} req
  * @param {Response} res
@@ -70,7 +70,7 @@ export const updatePractitioner = async (req, res) => {
       const user = await Practitioner.findByPk(id);
       res.status(HttpStatus.CREATED).send(user);
     } else {
-      throw new HttpError('Practitioner not found.', 400);
+      throw new HttpError('Practitioner not found.', 404);
     }
   } catch (err) {
     handleErrorResponse(res, err);
@@ -78,7 +78,7 @@ export const updatePractitioner = async (req, res) => {
 };
 
 /**
- * Delete practitioner record by given id
+ * Delete practitioner record by given id.
  *
  * @param {Request} req
  * @param {Response} res
@@ -93,7 +93,7 @@ export const deletePractitioner = async (req, res) => {
     if (numDeleted) {
       res.status({ message: 'Practitioner deleted successfully' });
     } else {
-      throw new HttpError('Practitioner not found.', 400);
+      throw new HttpError('Practitioner not found.', 404);
     }
   } catch (err) {
     handleErrorResponse(res, err);
@@ -101,7 +101,7 @@ export const deletePractitioner = async (req, res) => {
 };
 
 /**
- * Get detail of practitioner
+ * Get details of practitioner.
  *
  * @param {Request} req
  * @param {Response} res
