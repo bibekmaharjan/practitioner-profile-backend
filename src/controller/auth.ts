@@ -21,7 +21,7 @@ export const signup = async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 8),
     });
 
-    res.send({ message: 'User was registered successfully!' });
+    res.send({ message: 'User was registered successfully.' });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -50,7 +50,7 @@ export const signin = async (req, res) => {
     if (!passwordIsValid) {
       return res.status(401).send({
         accessToken: null,
-        message: 'Invalid Password!',
+        message: 'Invalid Password.',
       });
     }
 
