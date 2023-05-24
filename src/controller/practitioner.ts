@@ -70,7 +70,7 @@ export const updatePractitioner = async (req, res) => {
       const user = await Practitioner.findByPk(id);
       res.status(HttpStatus.CREATED).send(user);
     } else {
-      throw new HttpError('Practitioner not found.', 400);
+      throw new HttpError('Practitioner not found.', 404);
     }
   } catch (err) {
     handleErrorResponse(res, err);
