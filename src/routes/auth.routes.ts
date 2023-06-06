@@ -1,8 +1,8 @@
 import userAuth from '../schemas/userAuth';
-import { signin, signup } from '../controller/auth';
 import verifySignUp from '../middleware/verifySignup';
 import { schema } from '../middleware/validateSchema';
 import corsMiddleware from '../middleware/corsMiddleware';
+import { signin, signup } from '../controller/authController';
 
 export default (app) => {
   app.use(corsMiddleware);

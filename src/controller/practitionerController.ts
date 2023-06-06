@@ -7,7 +7,7 @@ import { HttpError, handleErrorResponse } from '../misc/errorHandling';
 const Practitioner = db.practitioner;
 
 /**
- * Get list of practitioner
+ * Get list of practitioner.
  *
  * @param {Request} req
  * @param {Response} res
@@ -45,7 +45,7 @@ export const addPractitioner = async (req, res) => {
 };
 
 /**
- * Update practitioner of practitioner list.
+ * Update practitioner from practitioner list.
  *
  * @param {Request} req
  * @param {Response} res
@@ -72,6 +72,46 @@ export const updatePractitioner = async (req, res) => {
     } else {
       throw new HttpError('Practitioner not found.', 404);
     }
+  } catch (err) {
+    handleErrorResponse(res, err);
+  }
+};
+
+/**
+ * Delete practitioner record by given id.
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+export const deletePractitioner = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Delete the practitioner record
+    const numDeleted = await Practitioner.destroy({ where: { id } });
+
+    if (numDeleted) {
+      res.status({ message: 'Practitioner deleted successfully' });
+    } else {
+      throw new HttpError('Practitioner not found.', 404);
+    }
+  } catch (err) {
+    handleErrorResponse(res, err);
+  }
+};
+
+/**
+ * Get details of practitioner.
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+export const getPractitionerDetail = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const response = await Practitioner.findByPk(id);
+    res.send(response);
   } catch (err) {
     handleErrorResponse(res, err);
   }
